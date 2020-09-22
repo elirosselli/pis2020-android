@@ -1,4 +1,4 @@
-package com.pack.myapplication;
+package com.pack.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
+
+import com.pack.sdk.ContInterfaceConfiguracion;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ContInterfaceConfiguracion CF = new ContInterfaceConfiguracion();
         //El tema de la uri cuando se hace el redirect. En el manifest esta configurado el deep linking
         Intent intent = getIntent();
         String action = intent.getAction();
