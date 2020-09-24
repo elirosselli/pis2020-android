@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.pack.sdk.ContInterfaceConfiguracion;
+import com.pack.sdk.Requests;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ContInterfaceConfiguracion CF = new ContInterfaceConfiguracion();
+
+
         //El tema de la uri cuando se hace el redirect. En el manifest esta configurado el deep linking
         Intent intent = getIntent();
         String action = intent.getAction();
@@ -33,9 +34,12 @@ public class MainActivity extends AppCompatActivity {
         //Uri uri = getIntent().getData();
         if(data!=null){
             String code = data.getQueryParameter("code");
-            if(code!=null) // el usuario final acepto
-                Toast.makeText(this, "Tu code es:"+code,Toast.LENGTH_LONG).show();
-            else // el usuario final cancelo
+            if(code!=null) {// el usuario final acepto
+                Toast.makeText(this, "Tu code es:" + code, Toast.LENGTH_LONG).show();
+                Requests rq = new Requests(getApplicationContext(),code);
+                rq.makeRequest();
+
+            }else // el usuario final cancelo
                 Toast.makeText(this, "No le diste a aceptar",Toast.LENGTH_LONG).show();
         }
     }
