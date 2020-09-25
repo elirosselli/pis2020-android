@@ -41,6 +41,7 @@ import androidx.annotation.RequiresApi;
 import removeProduction.HttpsTrustManager;
 import types.TokenRequest;
 import types.TypeRequest;
+import types.TypeResponse;
 import types.UserInfoRequest;
 
 public class Requests {
@@ -88,7 +89,7 @@ public class Requests {
         return false;
     }
 
-    public void makeRequest(TypeRequest rq){
+    public TypeResponse makeRequest(TypeRequest rq){
         HttpsTrustManager.allowAllSSL(); //TODO Remove in production
         RequestQueue requestQueue;
 
@@ -109,19 +110,22 @@ public class Requests {
             ContInterfaceConfiguracion conf = ContInterfaceConfiguracion.getInstance();
 
             //Procesar respuesta del endpoint
-            rq.processResponse(response); //TODO return response
-
+            TypeResponse tr = rq.processResponse(response); //TODO return response
+            return tr;
         } catch (InterruptedException e) {
             // exception handling
             Log.i("Token", "Interrupted");
+            return new types.Error("","");
         } catch (ExecutionException e) {
             // exception handling
             Log.i("Token", "Execution");
+            return new types.Error("","");
         } catch (TimeoutException e) {
             // exception handling
             Log.i("Token", "Timeout");
+            return new types.Error("","");
         } catch (Throwable t){
-
+            return new types.Error("","");
         }
 
     }

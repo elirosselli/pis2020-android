@@ -59,9 +59,10 @@ public class UserInfoRequest extends TypeRequest{
     }
 
     @Override
-    public void processResponse(JSONObject response){ // TODO return response type
+    public TypeResponse processResponse(JSONObject response){ // TODO return response type
 
         Log.i("Response", response.toString());
+        return new UserInfoResponse(response);
 
     }
 }

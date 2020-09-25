@@ -40,7 +40,7 @@ public class LogoutRequest extends TypeRequest {
     }
 
     @Override
-    public void processResponse(JSONObject s) {
-
+    public TypeResponse processResponse(JSONObject s) {
+        return null;
     }
 }

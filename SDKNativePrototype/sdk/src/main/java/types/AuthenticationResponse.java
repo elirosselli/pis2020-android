@@ -1,6 +1,6 @@
 package types;
 
-public class AuthenticationResponse {
+public class AuthenticationResponse extends TypeResponse {
     private String code;
     private String state;
 

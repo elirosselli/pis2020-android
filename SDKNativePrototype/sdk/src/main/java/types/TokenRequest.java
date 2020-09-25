@@ -97,7 +97,7 @@ public class TokenRequest extends TypeRequest {
     }
 
     @Override
-    public void processResponse(JSONObject response){
+    public TypeResponse processResponse(JSONObject response){
         ContInterfaceConfiguracion conf = ContInterfaceConfiguracion.getInstance();
         try {
             String access_token = response.getString("access_token");
@@ -116,8 +116,15 @@ public class TokenRequest extends TypeRequest {
 
             Log.i("Token", access_token);
             conf.setId_token(id_token);
+            TokenResponse tr = new TokenResponse(access_token, token_type,id_token);
+
+            return tr;
+
         } catch (JSONException e) {
             e.printStackTrace();
+            return new Error("","");
         }
+
+
     }
 }

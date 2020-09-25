@@ -10,5 +10,5 @@ public abstract class TypeRequest {
 
     public abstract StringRequest doRequest(RequestFuture future);
 
-    public abstract void processResponse(JSONObject s);
+    public abstract TypeResponse processResponse(JSONObject s);
 }

@@ -3,7 +3,9 @@ package com.pack.app;
 import androidx.appcompat.app.AppCompatActivity;
 import types.TypeRequest;
 import types.TokenRequest;
+import types.TypeResponse;
 import types.UserInfoRequest;
+import types.UserInfoResponse;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -32,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ContInterfaceConfiguracion contConf = ContInterfaceConfiguracion.getInstance();
-        contConf.setClient_id("ID");
-        contConf.setClient_secret("Secret");
+        contConf.setClient_id("id");
+        contConf.setClient_secret("secret");
         contConf.setRedirect_uri("sdkIdU.testing://auth");
         contConf.setScope("openid+email+profile+");
         //El tema de la uri cuando se hace el redirect. En el manifest esta configurado el deep linking
@@ -50,7 +52,10 @@ public class MainActivity extends AppCompatActivity {
                     rq.makeRequest(nReq);
 
                     UserInfoRequest uReq = new UserInfoRequest();
-                    rq.makeRequest(uReq);
+                    TypeResponse rp = rq.makeRequest(uReq);
+                    UserInfoResponse urp = (UserInfoResponse) rp;
+
+                    Log.i("MainUI",urp.getInfo().toString());
                 }
             });
             thread.start();

@@ -1,6 +1,6 @@
 package types;
 
-public class Error {
+public class Error extends TypeResponse{
     private String code;
     private String desc;
 
