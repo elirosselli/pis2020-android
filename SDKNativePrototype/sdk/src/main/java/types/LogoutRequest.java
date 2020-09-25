@@ -1,6 +1,11 @@
 package types;
 
-public class LogoutRequest extends Request {
+import com.android.volley.toolbox.RequestFuture;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONObject;
+
+public class LogoutRequest extends TypeRequest {
     private String id_token_hint;
     private String post_logout_redirect_uri;
     private String state;
@@ -27,5 +32,15 @@ public class LogoutRequest extends Request {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    @Override
+    public StringRequest doRequest(RequestFuture future) {
+        return null;
+    }
+
+    @Override
+    public void processResponse(JSONObject s) {
+
     }
 }

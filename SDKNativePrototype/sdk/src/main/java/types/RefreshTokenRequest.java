@@ -1,6 +1,11 @@
 package types;
 
-public class RefreshTokenRequest extends Request{
+import com.android.volley.toolbox.RequestFuture;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONObject;
+
+public class RefreshTokenRequest extends TypeRequest {
     private String grant_type;
     private String refresh_token;
 
@@ -18,5 +23,15 @@ public class RefreshTokenRequest extends Request{
 
     public void setRefresh_token(String refresh_token) {
         this.refresh_token = refresh_token;
+    }
+
+    @Override
+    public StringRequest doRequest(RequestFuture future) {
+        return null;
+    }
+
+    @Override
+    public void processResponse(JSONObject s) {
+
     }
 }
