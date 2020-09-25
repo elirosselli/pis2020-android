@@ -1,9 +1,12 @@
 package com.pack.sdk;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Cache;
@@ -36,7 +39,9 @@ import java.util.concurrent.TimeoutException;
 
 import androidx.annotation.RequiresApi;
 import removeProduction.HttpsTrustManager;
+import types.TokenRequest;
 import types.TypeRequest;
+import types.UserInfoRequest;
 
 public class Requests {
 
@@ -51,6 +56,36 @@ public class Requests {
 
     private Requests(Context context) {
         this.context = context;
+    }
+
+    public void login(){
+        ContInterfaceConfiguracion conf = ContInterfaceConfiguracion.getInstance();
+        String redirect_uri = conf.getRedirect_uri();
+        String scope = conf.getScope();
+        String client_id = conf.getClient_id();
+
+        String url = "https://auth-testing.iduruguay.gub.uy/oidc/v1/authorize?scope="+ scope +"&response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(browserIntent);
+
+    }
+
+    public boolean listenLoginResponse(Intent intent){
+        String action = intent.getAction();
+        Uri data = intent.getData();
+        //Uri uri = getIntent().getData();
+        if(data!=null){
+            final String code = data.getQueryParameter("code");
+            if(code!=null) {// el usuario final acepto
+                Log.i("code", code);
+                ContInterfaceConfiguracion.getInstance().setAuthorization_code(code);
+                return true;
+            }else // el usuario final cancelo
+                Log.i("Not code", "Fue cancelado");
+        }
+
+        return false;
     }
 
     public void makeRequest(TypeRequest rq){

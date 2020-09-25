@@ -55,6 +55,8 @@ public class TokenRequest extends TypeRequest {
 
     @Override
     public StringRequest doRequest(RequestFuture future) {
+        code = ContInterfaceConfiguracion.getInstance().getAuthorization_code();
+        redirect_uri = ContInterfaceConfiguracion.getInstance().getRedirect_uri();
         StringRequest request = new StringRequest(Request.Method.POST, apiLink,future,
                 future) {
 
