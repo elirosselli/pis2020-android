@@ -2,7 +2,7 @@ package types;
 
 import org.json.JSONObject;
 
-public class UserInfoResponse {
+public class UserInfoResponse extends TypeResponse{
     private JSONObject info;
 
     //  Constructor

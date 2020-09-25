@@ -1,4 +1,4 @@
 package types;
 
-public class TypeResponse {
+public abstract class TypeResponse {
 }

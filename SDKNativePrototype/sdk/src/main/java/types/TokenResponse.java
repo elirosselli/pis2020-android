@@ -1,6 +1,6 @@
 package types;
 
-public class TokenResponse {
+public class TokenResponse extends TypeResponse {
     private String access_token;
     private String token_type;
     private String id_token;
