@@ -22,7 +22,7 @@ public class ContInterfaceConfiguracionUsuario {
     //private JWK key; //TODO
 
     // Constructor
-    public ContInterfaceConfiguracion(){
+    public ContInterfaceConfiguracionUsuario(){
         this.client_id = null;
         this.client_secret = null;
         this.redirect_uri = null;
