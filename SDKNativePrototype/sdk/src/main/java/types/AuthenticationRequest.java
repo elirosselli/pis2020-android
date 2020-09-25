@@ -1,6 +1,11 @@
 package types;
 
-public class AuthenticationRequest extends Request{
+import com.android.volley.toolbox.RequestFuture;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONObject;
+
+public class AuthenticationRequest extends TypeRequest {
     private String response_type;
     private String scope;
     private String client_id;
@@ -74,5 +79,13 @@ public class AuthenticationRequest extends Request{
         this.acr_values = acr_values;
     }
 
+    @Override
+    public StringRequest doRequest(RequestFuture future) {
+        return null;
+    }
 
+    @Override
+    public void processResponse(JSONObject s) {
+
+    }
 }
