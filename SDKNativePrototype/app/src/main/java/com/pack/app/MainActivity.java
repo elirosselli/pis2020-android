@@ -19,6 +19,9 @@ import android.widget.Toast;
 import com.pack.sdk.ContInterfaceConfiguracion;
 import com.pack.sdk.Requests;
 
+import java.util.Arrays;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -35,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ContInterfaceConfiguracion contConf = ContInterfaceConfiguracion.getInstance();
-        contConf.setClient_id("ID");
-        contConf.setClient_secret("SECRET");
+        contConf.setClient_id("id");
+        contConf.setClient_secret("secret");
         contConf.setRedirect_uri("sdkIdU.testing://auth");
-        contConf.setScope("openid+email+profile+");
+        contConf.setScope(Arrays.asList("openid","email","profile","document"));
         //El tema de la uri cuando se hace el redirect. En el manifest esta configurado el deep linking
         Intent intent = getIntent();
         Requests rq = Requests.getInstance(getApplicationContext());
@@ -58,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
 
                     Intent openData = new Intent(MainActivity.this, UserInfoActivity.class);
-                    openData.putExtra("data", urp.getInfo().toString());
+                    String data = "";
+                    for(Map.Entry<String, Map<String,String>> entrada:  urp.getInfo().entrySet()){
+                        data += entrada.getKey()+"\n";
+                        for(Map.Entry<String,String> value : entrada.getValue().entrySet()){
+                            data += "       "+value.getKey() + " -> " + value.getValue() +"\n";
+                        }
+                    }
+                    openData.putExtra("data", data);
                     startActivity(openData);
                     Log.i("MainUI",urp.getInfo().toString());
                 }

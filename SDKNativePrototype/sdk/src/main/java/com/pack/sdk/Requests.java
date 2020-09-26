@@ -62,7 +62,10 @@ public class Requests {
     public void login(){
         ContInterfaceConfiguracion conf = ContInterfaceConfiguracion.getInstance();
         String redirect_uri = conf.getRedirect_uri();
-        String scope = conf.getScope();
+        String scope = "";
+        for (String sc : conf.getScope()){
+            scope += sc + "+";
+        }
         String client_id = conf.getClient_id();
 
         String url = "https://auth-testing.iduruguay.gub.uy/oidc/v1/authorize?scope="+ scope +"&response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;

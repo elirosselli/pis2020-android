@@ -2,6 +2,8 @@ package com.pack.sdk;
 
 import android.util.Log;
 
+import java.util.List;
+
 public class ContInterfaceConfiguracion {
 
     private String client_id;
@@ -19,7 +21,7 @@ public class ContInterfaceConfiguracion {
     private String prompt;
     private String grant_type;
     private String acr_values;
-    private String scope;
+    private List<String> scope;
     private Boolean update_token;
     //private JWK key;
     private static ContInterfaceConfiguracion instance;
@@ -163,11 +165,11 @@ public class ContInterfaceConfiguracion {
         this.acr_values = acr_values;
     }
 
-    public String getScope() {
+    public List<String> getScope() {
         return scope;
     }
 
-    public void setScope(String scope) {
+    public void setScope(List<String> scope) {
         this.scope = scope;
     }
 

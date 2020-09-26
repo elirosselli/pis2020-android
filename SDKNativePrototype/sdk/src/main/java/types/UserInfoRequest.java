@@ -13,6 +13,7 @@ import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.pack.sdk.ContInterfaceConfiguracion;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -62,7 +63,11 @@ public class UserInfoRequest extends TypeRequest{
     public TypeResponse processResponse(JSONObject response){ // TODO return response type
 
         Log.i("Response", response.toString());
-        return new UserInfoResponse(response);
+        try {
+            return new UserInfoResponse(response, ContInterfaceConfiguracion.getInstance().getScope());
+        } catch (JSONException e) {
+            return null;
+        }
 
     }
 }
