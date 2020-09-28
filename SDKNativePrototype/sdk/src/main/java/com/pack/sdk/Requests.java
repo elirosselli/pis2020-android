@@ -25,7 +25,7 @@ import removeProduction.HttpsTrustManager;
 import types.TypeRequest;
 import types.TypeResponse;
 
-public class Requests {
+public class Requests implements InterfaceRequests {
 
     private Context context;
     private static Requests instance;
