@@ -1,22 +1,18 @@
 package com.pack.app;
 
 import androidx.appcompat.app.AppCompatActivity;
-import types.TypeRequest;
 import types.TokenRequest;
 import types.TypeResponse;
 import types.UserInfoRequest;
 import types.UserInfoResponse;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import com.pack.sdk.ContInterfaceConfiguracion;
+import com.pack.sdk.ContConfiguracion;
 import com.pack.sdk.Requests;
 
 import java.util.Arrays;
@@ -37,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ContInterfaceConfiguracion contConf = ContInterfaceConfiguracion.getInstance();
-        contConf.setClient_id("id");
-        contConf.setClient_secret("secret");
+        ContConfiguracion contConf = ContConfiguracion.getInstance();
+        contConf.setClient_id(BuildConfig.CLIENT_ID);
+        contConf.setClient_secret(BuildConfig.CLIENT_SECRET);
         contConf.setRedirect_uri("sdkIdU.testing://auth");
         contConf.setScope(Arrays.asList("openid","email","profile","document"));
         //El tema de la uri cuando se hace el redirect. En el manifest esta configurado el deep linking

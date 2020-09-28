@@ -11,7 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
-import com.pack.sdk.ContInterfaceConfiguracion;
+import com.pack.sdk.ContConfiguracion;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,15 +55,15 @@ public class TokenRequest extends TypeRequest {
 
     @Override
     public StringRequest doRequest(RequestFuture future) {
-        code = ContInterfaceConfiguracion.getInstance().getAuthorization_code();
-        redirect_uri = ContInterfaceConfiguracion.getInstance().getRedirect_uri();
+        code = ContConfiguracion.getInstance().getAuthorization_code();
+        redirect_uri = ContConfiguracion.getInstance().getRedirect_uri();
         StringRequest request = new StringRequest(Request.Method.POST, apiLink,future,
                 future) {
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    String USERNAME = ContInterfaceConfiguracion.getInstance().getClient_id(); // TODO change to config.Code
-                    String PASSWORD = ContInterfaceConfiguracion.getInstance().getClient_secret(); //TODO change to config.Secret
+                    String USERNAME = ContConfiguracion.getInstance().getClient_id(); // TODO change to config.Code
+                    String PASSWORD = ContConfiguracion.getInstance().getClient_secret(); //TODO change to config.Secret
                     Map<String, String> headerMap = new HashMap<String, String>();
                     String credentials = USERNAME+":"+PASSWORD;
                     String auth = "Basic "
@@ -98,7 +98,7 @@ public class TokenRequest extends TypeRequest {
 
     @Override
     public TypeResponse processResponse(JSONObject response){
-        ContInterfaceConfiguracion conf = ContInterfaceConfiguracion.getInstance();
+        ContConfiguracion conf = ContConfiguracion.getInstance();
         try {
             String access_token = response.getString("access_token");
             conf.setAccess_token(access_token);

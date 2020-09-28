@@ -3,46 +3,27 @@ package com.pack.sdk;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
-import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Network;
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import androidx.annotation.RequiresApi;
 import removeProduction.HttpsTrustManager;
-import types.TokenRequest;
 import types.TypeRequest;
 import types.TypeResponse;
-import types.UserInfoRequest;
 
 public class Requests {
 
@@ -60,7 +41,7 @@ public class Requests {
     }
 
     public void login(){
-        ContInterfaceConfiguracion conf = ContInterfaceConfiguracion.getInstance();
+        ContConfiguracion conf = ContConfiguracion.getInstance();
         String redirect_uri = conf.getRedirect_uri();
         String scope = "";
         for (String sc : conf.getScope()){
@@ -83,7 +64,7 @@ public class Requests {
             final String code = data.getQueryParameter("code");
             if(code!=null) {// el usuario final acepto
                 Log.i("code", code);
-                ContInterfaceConfiguracion.getInstance().setAuthorization_code(code);
+                ContConfiguracion.getInstance().setAuthorization_code(code);
                 return true;
             }else // el usuario final cancelo
                 Log.i("Not code", "Fue cancelado");
@@ -110,7 +91,7 @@ public class Requests {
         try {
             JSONObject response = null;
             response = new JSONObject((String) future.get(2, TimeUnit.SECONDS));
-            ContInterfaceConfiguracion conf = ContInterfaceConfiguracion.getInstance();
+            ContConfiguracion conf = ContConfiguracion.getInstance();
 
             //Procesar respuesta del endpoint
             TypeResponse tr = rq.processResponse(response); //TODO return response

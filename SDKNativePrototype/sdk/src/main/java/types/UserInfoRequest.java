@@ -1,7 +1,6 @@
 package types;
 
 import android.os.Build;
-import android.util.Base64;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -11,7 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
-import com.pack.sdk.ContInterfaceConfiguracion;
+import com.pack.sdk.ContConfiguracion;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +27,7 @@ public class UserInfoRequest extends TypeRequest{
 
     @Override
     public StringRequest doRequest(RequestFuture future) {
-        ContInterfaceConfiguracion conf = ContInterfaceConfiguracion.getInstance();
+        ContConfiguracion conf = ContConfiguracion.getInstance();
 
         final String accessToken = conf.getAccess_token();
 
@@ -64,7 +63,7 @@ public class UserInfoRequest extends TypeRequest{
 
         Log.i("Response", response.toString());
         try {
-            return new UserInfoResponse(response, ContInterfaceConfiguracion.getInstance().getScope());
+            return new UserInfoResponse(response, ContConfiguracion.getInstance().getScope());
         } catch (JSONException e) {
             return null;
         }

@@ -1,7 +1,7 @@
 package com.pack.sdk;
 import types.Error;
 
-public class ContInterfaceConfiguracionUsuario {
+public class ContConfiguracionUsuario {
 
     private String client_id;
     private String client_secret;
@@ -22,7 +22,7 @@ public class ContInterfaceConfiguracionUsuario {
     //private JWK key; //TODO
 
     // Constructor
-    public ContInterfaceConfiguracionUsuario(){
+    public ContConfiguracionUsuario(){
         this.client_id = null;
         this.client_secret = null;
         this.redirect_uri = null;

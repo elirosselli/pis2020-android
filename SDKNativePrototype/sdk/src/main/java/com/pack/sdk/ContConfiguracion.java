@@ -1,10 +1,8 @@
 package com.pack.sdk;
 
-import android.util.Log;
-
 import java.util.List;
 
-public class ContInterfaceConfiguracion {
+public class ContConfiguracion {
 
     private String client_id;
     private String client_secret;
@@ -24,10 +22,10 @@ public class ContInterfaceConfiguracion {
     private List<String> scope;
     private Boolean update_token;
     //private JWK key;
-    private static ContInterfaceConfiguracion instance;
+    private static ContConfiguracion instance;
 
     // Constructor
-    private ContInterfaceConfiguracion(){
+    private ContConfiguracion(){
         this.client_id = null;
         this.client_secret = null;
         this.redirect_uri = null;
@@ -47,9 +45,9 @@ public class ContInterfaceConfiguracion {
         // JWK key;
     }
 
-    public static ContInterfaceConfiguracion getInstance(){
+    public static ContConfiguracion getInstance(){
         if(instance == null)
-            instance = new ContInterfaceConfiguracion();
+            instance = new ContConfiguracion();
         return instance;
     }
 
