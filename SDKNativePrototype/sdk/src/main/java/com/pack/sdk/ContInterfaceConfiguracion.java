@@ -4,7 +4,7 @@ import android.util.Log;
 
 import java.util.List;
 
-public class ContInterfaceConfiguracion {
+public class ContInterfaceConfiguracion implements InterfaceConfiguracion{
 
     private String client_id;
     private String client_secret;
@@ -44,6 +44,7 @@ public class ContInterfaceConfiguracion {
         this.acr_values = null;
         this.scope = null;
         this.update_token = null;
+        this.refresh_token = null;
         // JWK key;
     }
 
@@ -187,6 +188,27 @@ public class ContInterfaceConfiguracion {
 
     public void setRefresh_token(String refresh_token) {
         this.refresh_token = refresh_token;
+    }
+
+    public void clearParametros() {
+        this.client_id = null;
+        this.redirect_uri = null;
+        this.response_type = null;
+        this.id_token = null;
+        this.token_type = null;
+        this.authorization_code = null;
+        this.access_token = null;
+        this.refresh_token = null;
+        this.expires_in = null;
+        this.state = null;
+        this.nonce = null;
+        this.prompt = null;
+        this.client_secret = null;
+        this.grant_type = null;
+        this.acr_values = null;
+        this.scope = null;
+        this.update_token = null;
+        // JWK key;
     }
 
 }
