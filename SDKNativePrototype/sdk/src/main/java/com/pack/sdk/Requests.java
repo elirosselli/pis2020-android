@@ -44,7 +44,7 @@ import types.TypeRequest;
 import types.TypeResponse;
 import types.UserInfoRequest;
 
-public class Requests {
+public class Requests implements InterfaceRequests {
 
     private Context context;
     private static Requests instance;
