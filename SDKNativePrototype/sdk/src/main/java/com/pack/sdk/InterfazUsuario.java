@@ -1,4 +1,7 @@
 package com.pack.sdk;
+import android.content.Context;
+
+import types.TypeResponse;
 import types.Error;
 import types.TokenResponse;
 import types.UserInfoResponse;
@@ -9,7 +12,7 @@ public interface InterfazUsuario {
 
     //TODO JWK key param
     Error initialize(String client_id, String client_secret, String redirect_uri);//, String response_type, String id_token, String token_type, String authorization_code, String access_token, Integer expires_in, String state, String nonce, String prompt, String grant_type, String acr_values, String scope, Boolean update_token);
-    Error login();
+    TypeResponse login(Context context);
     Map<TokenResponse, Error> getToken();
     Map<TokenResponse, Error> refreshToken(String refresh_token);
     Map<UserInfoResponse, Error> getUserInfo();
