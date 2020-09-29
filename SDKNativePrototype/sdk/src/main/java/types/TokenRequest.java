@@ -122,7 +122,7 @@ public class TokenRequest extends TypeRequest {
 
         } catch (JSONException e) {
             e.printStackTrace();
-            return new Error("","");
+            return new ErrorResponse("","");
         }
 
 

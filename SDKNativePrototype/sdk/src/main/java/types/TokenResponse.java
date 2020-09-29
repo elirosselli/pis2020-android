@@ -9,6 +9,7 @@ public class TokenResponse extends TypeResponse {
 
     //  Constructor
     public TokenResponse(String access_token, String token_type, String id_token) {
+        super(true);
         this.access_token = access_token;
         this.token_type = token_type;
         this.id_token = id_token;

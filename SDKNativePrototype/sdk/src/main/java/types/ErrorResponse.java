@@ -1,16 +1,18 @@
 package types;
 
-public class Error extends TypeResponse{
+public class ErrorResponse extends TypeResponse{
     private String code;
     private String desc;
 
     //  Constructors
-    public Error() {
+    public ErrorResponse() {
+        super(false);
         this.code = null;
         this.desc = null;
     }
 
-    public Error(String code, String desc) {
+    public ErrorResponse(String code, String desc) {
+        super(false);
         this.code = code;
         this.desc = desc;
     }

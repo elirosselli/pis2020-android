@@ -22,6 +22,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import removeProduction.HttpsTrustManager;
+import types.AuthenticationRequest;
+import types.AuthenticationResponse;
+import types.ErrorResponse;
 import types.TypeRequest;
 import types.TypeResponse;
 
@@ -40,76 +43,80 @@ public class Requests implements InterfaceRequests {
         this.context = context;
     }
 
-    public void login(){
-        ContConfiguracion conf = ContConfiguracion.getInstance();
-        String redirect_uri = conf.getRedirect_uri();
-        String scope = "";
-        for (String sc : conf.getScope()){
-            scope += sc + "+";
-        }
-        String client_id = conf.getClient_id();
-
-        String url = "https://auth-testing.iduruguay.gub.uy/oidc/v1/authorize?scope="+ scope +"&response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(browserIntent);
-
-    }
-
-    public boolean listenLoginResponse(Intent intent){
+    public TypeResponse listenLoginResponse(Intent intent){
         String action = intent.getAction();
         Uri data = intent.getData();
         //Uri uri = getIntent().getData();
+
+        Log.i("err","err");
         if(data!=null){
             final String code = data.getQueryParameter("code");
             if(code!=null) {// el usuario final acepto
                 Log.i("code", code);
                 ContConfiguracion.getInstance().setAuthorization_code(code);
-                return true;
+                return new AuthenticationResponse(code);
             }else // el usuario final cancelo
                 Log.i("Not code", "Fue cancelado");
         }
 
-        return false;
+        return new ErrorResponse();
     }
 
     public TypeResponse makeRequest(TypeRequest rq){
-        HttpsTrustManager.allowAllSSL(); //TODO Remove in production
-        RequestQueue requestQueue;
+        if(rq.getClass().equals(AuthenticationRequest.class)){ // Authentication Request
 
-        // Instantiate the cache
-        Cache cache = new DiskBasedCache(context.getCacheDir(),1024*1024);
-        Network network = new BasicNetwork(new HurlStack());
-        requestQueue = new RequestQueue(cache, network);
-        requestQueue.start();
-
-        RequestFuture future = RequestFuture.newFuture();
-        StringRequest jsonObjRequest = rq.doRequest(future);
-        jsonObjRequest.setRetryPolicy(new DefaultRetryPolicy(500, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        requestQueue.add(jsonObjRequest);
-
-        try {
-            JSONObject response = null;
-            response = new JSONObject((String) future.get(2, TimeUnit.SECONDS));
             ContConfiguracion conf = ContConfiguracion.getInstance();
+            String redirect_uri = conf.getRedirect_uri();
+            String scope = "";
+            for (String sc : conf.getScope()){
+                scope += sc + "+";
+            }
+            String client_id = conf.getClient_id();
 
-            //Procesar respuesta del endpoint
-            TypeResponse tr = rq.processResponse(response); //TODO return response
-            return tr;
-        } catch (InterruptedException e) {
-            // exception handling
-            Log.i("Token", "Interrupted");
-            return new types.Error("","");
-        } catch (ExecutionException e) {
-            // exception handling
-            Log.i("Token", "Execution");
-            return new types.Error("","");
-        } catch (TimeoutException e) {
-            // exception handling
-            Log.i("Token", "Timeout");
-            return new types.Error("","");
-        } catch (Throwable t){
-            return new types.Error("","");
+            String url = "https://auth-testing.iduruguay.gub.uy/oidc/v1/authorize?scope="+ scope +"&response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(browserIntent);
+
+            return null; // TODO ver que se devuelve
+        }else{ //Other requests
+            HttpsTrustManager.allowAllSSL(); //TODO Remove in production
+            RequestQueue requestQueue;
+
+            // Instantiate the cache
+            Cache cache = new DiskBasedCache(context.getCacheDir(),1024*1024);
+            Network network = new BasicNetwork(new HurlStack());
+            requestQueue = new RequestQueue(cache, network);
+            requestQueue.start();
+
+            RequestFuture future = RequestFuture.newFuture();
+            StringRequest jsonObjRequest = rq.doRequest(future);
+            jsonObjRequest.setRetryPolicy(new DefaultRetryPolicy(500, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            requestQueue.add(jsonObjRequest);
+
+            try {
+                JSONObject response = null;
+                response = new JSONObject((String) future.get(2, TimeUnit.SECONDS));
+                ContConfiguracion conf = ContConfiguracion.getInstance();
+
+                //Procesar respuesta del endpoint
+                TypeResponse tr = rq.processResponse(response); //TODO return response
+                return tr;
+            } catch (InterruptedException e) {
+                // exception handling
+                Log.i("Token", "Interrupted");
+                return new ErrorResponse("","");
+            } catch (ExecutionException e) {
+                // exception handling
+                Log.i("Token", "Execution");
+                return new ErrorResponse("","");
+            } catch (TimeoutException e) {
+                // exception handling
+                Log.i("Token", "Timeout");
+                return new ErrorResponse("","");
+            } catch (Throwable t){
+                return new ErrorResponse("","");
+            }
         }
 
     }

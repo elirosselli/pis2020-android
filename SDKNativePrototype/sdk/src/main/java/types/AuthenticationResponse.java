@@ -6,6 +6,7 @@ public class AuthenticationResponse extends TypeResponse {
 
     //  Constructor
     public AuthenticationResponse(String code) {
+        super(true);
         this.code = code;
         this.state = null;
     }

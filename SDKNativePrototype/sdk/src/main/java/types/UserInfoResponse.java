@@ -12,6 +12,7 @@ public class UserInfoResponse extends TypeResponse{
 
     //  Constructor
     public UserInfoResponse(JSONObject infoJSON, List<String> scope) throws JSONException {
+        super(true);
         info = new HashMap<String, Map<String, String>>();
         for(String scopeD : scope){
             Map<String,String> scopeInfo = new HashMap<String,String>();

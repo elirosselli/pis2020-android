@@ -1,6 +1,9 @@
 package com.pack.app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import types.AuthenticationRequest;
+import types.AuthenticationResponse;
+import types.ErrorResponse;
 import types.TokenRequest;
 import types.TypeResponse;
 import types.UserInfoRequest;
@@ -13,6 +16,8 @@ import android.view.View;
 import android.view.Window;
 
 import com.pack.sdk.ContConfiguracion;
+import com.pack.sdk.ContUsuario;
+import com.pack.sdk.InterfazUsuario;
 import com.pack.sdk.Requests;
 
 import java.util.Arrays;
@@ -20,30 +25,32 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    static InterfazUsuario contUser = new ContUsuario(); //TODO factory
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+        contUser.initialize(BuildConfig.CLIENT_ID,BuildConfig.CLIENT_SECRET,"sdkIdU.testing://auth");
+
+
         findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Requests rq = Requests.getInstance(getApplicationContext());
-                rq.login();
+                contUser.login(getApplicationContext());
             }
         });
 
         ContConfiguracion contConf = ContConfiguracion.getInstance();
-        contConf.setClient_id(BuildConfig.CLIENT_ID);
-        contConf.setClient_secret(BuildConfig.CLIENT_SECRET);
-        contConf.setRedirect_uri("sdkIdU.testing://auth");
         contConf.setScope(Arrays.asList("openid","email","profile","document"));
-        //El tema de la uri cuando se hace el redirect. En el manifest esta configurado el deep linking
+
         Intent intent = getIntent();
+        //El tema de la uri cuando se hace el redirect. En el manifest esta configurado el deep linking
         Requests rq = Requests.getInstance(getApplicationContext());
         rq.listenLoginResponse(intent);
-
-        if(rq.listenLoginResponse(intent)){
+        if(rq.listenLoginResponse(intent).isSucceed()){
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {

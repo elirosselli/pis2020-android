@@ -1,19 +1,16 @@
 package com.pack.sdk;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Arrays;
+
 import types.TypeResponse;
-import types.Error;
-import types.TokenResponse;
-import types.UserInfoResponse;
+import types.ErrorResponse;
 import types.AuthenticationRequest;
 import android.content.Context;
 
 public class ContUsuario implements InterfazUsuario{
 
     @Override
-    public Error initialize(String client_id, String client_secret, String redirect_uri) {//, String response_type, String id_token, String token_type, String authorization_code, String access_token, Integer expires_in, String state, String nonce, String prompt, String grant_type, String acr_values, String scope, Boolean update_token) {
+    public ErrorResponse initialize(String client_id, String client_secret, String redirect_uri) {//, String response_type, String id_token, String token_type, String authorization_code, String access_token, Integer expires_in, String state, String nonce, String prompt, String grant_type, String acr_values, String scope, Boolean update_token) {
         ContConfiguracion intConf = ContConfiguracion.getInstance();
         intConf.setClient_id(client_id);
         intConf.setClient_secret(client_secret);
@@ -52,22 +49,22 @@ public class ContUsuario implements InterfazUsuario{
     }
 
     @Override
-    public Map<TokenResponse, Error> getToken() {
+    public TypeResponse getToken() {
         return null;
     }
 
     @Override
-    public Map<TokenResponse, Error> refreshToken(String refresh_token) {
+    public TypeResponse refreshToken(String refresh_token) {
         return null;
     }
 
     @Override
-    public Map<UserInfoResponse, Error> getUserInfo() {
+    public TypeResponse getUserInfo() {
         return null;
     }
 
     @Override
-    public Error logout() {
+    public TypeResponse logout() {
         return null;
     }
 }
