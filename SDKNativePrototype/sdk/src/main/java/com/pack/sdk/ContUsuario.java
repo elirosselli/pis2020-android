@@ -2,12 +2,15 @@ package com.pack.sdk;
 
 import java.util.List;
 
+import types.TokenRequest;
 import types.TypeResponse;
 import types.ErrorResponse;
 import types.AuthenticationRequest;
+import types.UserInfoRequest;
+
 import android.content.Context;
 
-public class ContUsuario implements InterfazUsuario{
+public class ContUsuario implements InterfazUsuario {
 
     @Override
     public ErrorResponse initialize(String client_id, String client_secret, String redirect_uri) {//, String response_type, String id_token, String token_type, String authorization_code, String access_token, Integer expires_in, String state, String nonce, String prompt, String grant_type, String acr_values, String scope, Boolean update_token) {
@@ -49,8 +52,10 @@ public class ContUsuario implements InterfazUsuario{
     }
 
     @Override
-    public TypeResponse getToken() {
-        return null;
+    public TypeResponse getToken(Context context) {
+        Requests rq = Requests.getInstance(context);
+        TokenRequest nReq = new TokenRequest();
+        return rq.makeRequest(nReq);
     }
 
     @Override
@@ -59,8 +64,10 @@ public class ContUsuario implements InterfazUsuario{
     }
 
     @Override
-    public TypeResponse getUserInfo() {
-        return null;
+    public TypeResponse getUserInfo(Context context) {
+        Requests rq = Requests.getInstance(context);
+        UserInfoRequest uReq = new UserInfoRequest();
+        return rq.makeRequest(uReq);
     }
 
     @Override

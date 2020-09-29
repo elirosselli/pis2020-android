@@ -2,6 +2,7 @@ package com.pack.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import types.TokenRequest;
+import types.TokenResponse;
 import types.TypeResponse;
 import types.UserInfoRequest;
 import types.UserInfoResponse;
@@ -51,37 +52,22 @@ public class MainActivity extends AppCompatActivity {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Requests rq = Requests.getInstance(getApplicationContext());
-                    TokenRequest nReq = new TokenRequest(){
-                        @Override
-                        public void onResponse(TypeResponse rp) {
-                            Requests rq = Requests.getInstance(getApplicationContext());
-                            UserInfoRequest uReq = new UserInfoRequest(){
-                                @Override
-                                public void onResponse(TypeResponse rp){
-                                    UserInfoResponse urp = (UserInfoResponse) rp;
+                    TokenResponse tr = (TokenResponse) contUser.getToken(getApplicationContext());
+                    Log.i("TokenUI", tr.getAccess_token());
+                    UserInfoResponse urp = (UserInfoResponse) contUser.getUserInfo(getApplicationContext());
 
 
-                                    Intent openData = new Intent(MainActivity.this, UserInfoActivity.class);
-                                    String data = "";
-                                    for(Map.Entry<String, Map<String,String>> entrada:  urp.getInfo().entrySet()){
-                                        data += entrada.getKey()+"\n";
-                                        for(Map.Entry<String,String> value : entrada.getValue().entrySet()){
-                                            data += "       "+value.getKey() + " -> " + value.getValue() +"\n";
-                                        }
-                                    }
-                                    openData.putExtra("data", data);
-                                    startActivity(openData);
-                                    Log.i("MainUI",urp.getInfo().toString());
-                                }
-                            };
-                            rq.makeRequest(uReq);
-
+                    Intent openData = new Intent(MainActivity.this, UserInfoActivity.class);
+                    String data = "";
+                    for(Map.Entry<String, Map<String,String>> entrada:  urp.getInfo().entrySet()){
+                        data += entrada.getKey()+"\n";
+                        for(Map.Entry<String,String> value : entrada.getValue().entrySet()){
+                            data += "       "+value.getKey() + " -> " + value.getValue() +"\n";
                         }
-                    };
-                    rq.makeRequest(nReq);
-
-
+                    }
+                    openData.putExtra("data", data);
+                    startActivity(openData);
+                    Log.i("MainUI",urp.getInfo().toString());
                 }
             });
             thread.start();
