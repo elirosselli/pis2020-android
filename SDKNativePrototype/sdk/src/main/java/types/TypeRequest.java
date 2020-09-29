@@ -11,4 +11,6 @@ public abstract class TypeRequest {
     public abstract StringRequest doRequest(RequestFuture future);
 
     public abstract TypeResponse processResponse(JSONObject s);
+
+    public void onResponse(TypeResponse rp){}
 }

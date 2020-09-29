@@ -11,4 +11,6 @@ public abstract class TypeResponse {
     public TypeResponse(boolean succeed) {
         this.succeed = succeed;
     }
+
+
 }

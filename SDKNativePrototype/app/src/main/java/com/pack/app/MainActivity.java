@@ -1,9 +1,6 @@
 package com.pack.app;
 
 import androidx.appcompat.app.AppCompatActivity;
-import types.AuthenticationRequest;
-import types.AuthenticationResponse;
-import types.ErrorResponse;
 import types.TokenRequest;
 import types.TypeResponse;
 import types.UserInfoRequest;
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        contUser.initialize(BuildConfig.CLIENT_ID,BuildConfig.CLIENT_SECRET,"sdkIdU.testing://auth");
+        contUser.initialize(BuildConfig.CLIENT_ID,BuildConfig.CLIENT_SECRET,"sdkIdU.testing://auth"); //TODO poner en strings.xml
 
 
         findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener(){
@@ -44,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ContConfiguracion contConf = ContConfiguracion.getInstance();
-        contConf.setScope(Arrays.asList("openid","email","profile","document"));
+        contConf.setScope(Arrays.asList("openid","email","profile","document")); // TODO el scope va a en el initialize? o en cada request?
 
         Intent intent = getIntent();
         //El tema de la uri cuando se hace el redirect. En el manifest esta configurado el deep linking
@@ -55,25 +52,36 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     Requests rq = Requests.getInstance(getApplicationContext());
-                    TokenRequest nReq = new TokenRequest();
+                    TokenRequest nReq = new TokenRequest(){
+                        @Override
+                        public void onResponse(TypeResponse rp) {
+                            Requests rq = Requests.getInstance(getApplicationContext());
+                            UserInfoRequest uReq = new UserInfoRequest(){
+                                @Override
+                                public void onResponse(TypeResponse rp){
+                                    UserInfoResponse urp = (UserInfoResponse) rp;
+
+
+                                    Intent openData = new Intent(MainActivity.this, UserInfoActivity.class);
+                                    String data = "";
+                                    for(Map.Entry<String, Map<String,String>> entrada:  urp.getInfo().entrySet()){
+                                        data += entrada.getKey()+"\n";
+                                        for(Map.Entry<String,String> value : entrada.getValue().entrySet()){
+                                            data += "       "+value.getKey() + " -> " + value.getValue() +"\n";
+                                        }
+                                    }
+                                    openData.putExtra("data", data);
+                                    startActivity(openData);
+                                    Log.i("MainUI",urp.getInfo().toString());
+                                }
+                            };
+                            rq.makeRequest(uReq);
+
+                        }
+                    };
                     rq.makeRequest(nReq);
 
-                    UserInfoRequest uReq = new UserInfoRequest();
-                    TypeResponse rp = rq.makeRequest(uReq);
-                    UserInfoResponse urp = (UserInfoResponse) rp;
 
-
-                    Intent openData = new Intent(MainActivity.this, UserInfoActivity.class);
-                    String data = "";
-                    for(Map.Entry<String, Map<String,String>> entrada:  urp.getInfo().entrySet()){
-                        data += entrada.getKey()+"\n";
-                        for(Map.Entry<String,String> value : entrada.getValue().entrySet()){
-                            data += "       "+value.getKey() + " -> " + value.getValue() +"\n";
-                        }
-                    }
-                    openData.putExtra("data", data);
-                    startActivity(openData);
-                    Log.i("MainUI",urp.getInfo().toString());
                 }
             });
             thread.start();

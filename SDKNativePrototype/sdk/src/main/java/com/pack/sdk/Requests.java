@@ -67,10 +67,7 @@ public class Requests implements InterfaceRequests {
 
             ContConfiguracion conf = ContConfiguracion.getInstance();
             String redirect_uri = conf.getRedirect_uri();
-            String scope = "";
-            for (String sc : conf.getScope()){
-                scope += sc + "+";
-            }
+            String scope = ((AuthenticationRequest) rq).getScope();
             String client_id = conf.getClient_id();
 
             String url = "https://auth-testing.iduruguay.gub.uy/oidc/v1/authorize?scope="+ scope +"&response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;
@@ -100,7 +97,9 @@ public class Requests implements InterfaceRequests {
                 ContConfiguracion conf = ContConfiguracion.getInstance();
 
                 //Procesar respuesta del endpoint
-                TypeResponse tr = rq.processResponse(response); //TODO return response
+                TypeResponse tr = rq.processResponse(response);
+
+                rq.onResponse(tr);
                 return tr;
             } catch (InterruptedException e) {
                 // exception handling
