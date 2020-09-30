@@ -69,6 +69,7 @@ public class TokenRequest extends TypeRequest {
                         try {
                             obj = new JSONObject(s);
                         } catch (Throwable t) {
+                            callback.onError(new ErrorResponse("str","Error en los datos recibidos. Formato incorrecto."));
                         }
                         callback.onSuccess(processResponse(obj));
                     }
