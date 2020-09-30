@@ -9,6 +9,7 @@ import types.AuthenticationRequest;
 import types.UserInfoRequest;
 
 import android.content.Context;
+import android.content.Intent;
 
 public class ContUsuario implements InterfazUsuario{
 
@@ -19,6 +20,12 @@ public class ContUsuario implements InterfazUsuario{
         intConf.setClient_secret(client_secret);
         intConf.setRedirect_uri(redirect_uri);
         return null;
+    }
+
+    @Override
+    public TypeResponse listenLoginResponse(Intent intent, Context context) {
+        Requests req = Requests.getInstance(context);
+        return(req.listenLoginResponse(intent));
     }
 
     @Override

@@ -44,9 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         //El tema de la uri cuando se hace el redirect. En el manifest esta configurado el deep linking
-        Requests rq = Requests.getInstance(getApplicationContext());
-        rq.listenLoginResponse(intent);
-        if(rq.listenLoginResponse(intent).isSucceed()){
+        TypeResponse tr = contUser.listenLoginResponse(intent, getApplicationContext());
+        if(tr.isSucceed()){
             contUser.getToken(getApplicationContext(), new RequestsCallback() {
                 @Override
                 public void onSuccess(TypeResponse response) {
