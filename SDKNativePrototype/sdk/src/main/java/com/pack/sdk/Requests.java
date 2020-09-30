@@ -62,7 +62,7 @@ public class Requests implements InterfaceRequests {
         return new ErrorResponse();
     }
 
-    public TypeResponse makeRequest(TypeRequest rq){
+    public void makeRequest(TypeRequest rq, RequestsCallback callback){
         if(rq.getClass().equals(AuthenticationRequest.class)){ // Authentication Request
 
             ContConfiguracion conf = ContConfiguracion.getInstance();
@@ -78,7 +78,6 @@ public class Requests implements InterfaceRequests {
             browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(browserIntent);
 
-            return null; // TODO ver que se devuelve
         }else{ //Other requests
             HttpsTrustManager.allowAllSSL(); //TODO Remove in production
             RequestQueue requestQueue;
@@ -90,33 +89,9 @@ public class Requests implements InterfaceRequests {
             requestQueue.start();
 
             RequestFuture future = RequestFuture.newFuture();
-            StringRequest jsonObjRequest = rq.doRequest(future);
+            StringRequest jsonObjRequest = rq.doRequest(callback);
             jsonObjRequest.setRetryPolicy(new DefaultRetryPolicy(500, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             requestQueue.add(jsonObjRequest);
-
-            try {
-                JSONObject response = null;
-                response = new JSONObject((String) future.get(2, TimeUnit.SECONDS));
-                ContConfiguracion conf = ContConfiguracion.getInstance();
-
-                //Procesar respuesta del endpoint
-                TypeResponse tr = rq.processResponse(response); //TODO return response
-                return tr;
-            } catch (InterruptedException e) {
-                // exception handling
-                Log.i("Token", "Interrupted");
-                return new ErrorResponse("","");
-            } catch (ExecutionException e) {
-                // exception handling
-                Log.i("Token", "Execution");
-                return new ErrorResponse("","");
-            } catch (TimeoutException e) {
-                // exception handling
-                Log.i("Token", "Timeout");
-                return new ErrorResponse("","");
-            } catch (Throwable t){
-                return new ErrorResponse("","");
-            }
         }
 
     }

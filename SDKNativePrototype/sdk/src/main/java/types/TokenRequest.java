@@ -8,10 +8,11 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.pack.sdk.ContConfiguracion;
+import com.pack.sdk.RequestsCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,11 +55,30 @@ public class TokenRequest extends TypeRequest {
     }
 
     @Override
-    public StringRequest doRequest(RequestFuture future) {
+    public StringRequest doRequest(final RequestsCallback callback) {
         code = ContConfiguracion.getInstance().getAuthorization_code();
         redirect_uri = ContConfiguracion.getInstance().getRedirect_uri();
-        StringRequest request = new StringRequest(Request.Method.POST, apiLink,future,
-                future) {
+        StringRequest request = new StringRequest(Request.Method.POST, apiLink,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        String s;
+                        s = response.trim();
+                        JSONObject obj = null;
+                        try {
+                            obj = new JSONObject(s);
+                        } catch (Throwable t) {
+                        }
+                        callback.onSuccess(processResponse(obj));
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onError(new ErrorResponse());
+                    }
+                }) {
 
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {

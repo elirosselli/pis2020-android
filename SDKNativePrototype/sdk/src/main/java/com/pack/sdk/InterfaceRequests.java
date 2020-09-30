@@ -4,5 +4,5 @@ import types.TypeRequest;
 import types.TypeResponse;
 
 public interface InterfaceRequests {
-    TypeResponse makeRequest(TypeRequest rq);
+    void makeRequest(TypeRequest rq, RequestsCallback callback);
 }

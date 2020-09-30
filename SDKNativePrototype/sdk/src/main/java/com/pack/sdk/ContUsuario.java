@@ -2,9 +2,12 @@ package com.pack.sdk;
 
 import java.util.List;
 
+import types.TokenRequest;
 import types.TypeResponse;
 import types.ErrorResponse;
 import types.AuthenticationRequest;
+import types.UserInfoRequest;
+
 import android.content.Context;
 
 public class ContUsuario implements InterfazUsuario{
@@ -44,13 +47,27 @@ public class ContUsuario implements InterfazUsuario{
         authReq.setResponse_type(response_type);
         // TODO: other parameters
         // TODO: validate response
+        final TypeResponse[] response_return = new TypeResponse[1];
+        requestsClass.makeRequest(authReq, new RequestsCallback() {
+            @Override
+            public void onSuccess(TypeResponse response) {
+                response_return[0] = response;
+            }
 
-        return requestsClass.makeRequest(authReq);
+            @Override
+            public void onError(TypeResponse response) {
+                response_return[0] = response;
+            }
+        });
+
+        return response_return[0];
     }
 
     @Override
-    public TypeResponse getToken() {
-        return null;
+    public void getToken(Context context, RequestsCallback callback) {
+        Requests rq = Requests.getInstance(context);
+        TokenRequest nReq = new TokenRequest();
+        rq.makeRequest(nReq,callback);
     }
 
     @Override
@@ -59,8 +76,10 @@ public class ContUsuario implements InterfazUsuario{
     }
 
     @Override
-    public TypeResponse getUserInfo() {
-        return null;
+    public void getUserInfo(Context context, RequestsCallback callback) {
+        Requests rq = Requests.getInstance(context);
+        UserInfoRequest uReq = new UserInfoRequest();
+        rq.makeRequest(uReq,callback);
     }
 
     @Override

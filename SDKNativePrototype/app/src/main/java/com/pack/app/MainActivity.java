@@ -1,12 +1,7 @@
 package com.pack.app;
 
 import androidx.appcompat.app.AppCompatActivity;
-import types.AuthenticationRequest;
-import types.AuthenticationResponse;
-import types.ErrorResponse;
-import types.TokenRequest;
 import types.TypeResponse;
-import types.UserInfoRequest;
 import types.UserInfoResponse;
 
 import android.content.Intent;
@@ -19,6 +14,7 @@ import com.pack.sdk.ContConfiguracion;
 import com.pack.sdk.ContUsuario;
 import com.pack.sdk.InterfazUsuario;
 import com.pack.sdk.Requests;
+import com.pack.sdk.RequestsCallback;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -51,33 +47,46 @@ public class MainActivity extends AppCompatActivity {
         Requests rq = Requests.getInstance(getApplicationContext());
         rq.listenLoginResponse(intent);
         if(rq.listenLoginResponse(intent).isSucceed()){
-            Thread thread = new Thread(new Runnable() {
+            contUser.getToken(getApplicationContext(), new RequestsCallback() {
                 @Override
-                public void run() {
-                    Requests rq = Requests.getInstance(getApplicationContext());
-                    TokenRequest nReq = new TokenRequest();
-                    rq.makeRequest(nReq);
+                public void onSuccess(TypeResponse response) {
 
-                    UserInfoRequest uReq = new UserInfoRequest();
-                    TypeResponse rp = rq.makeRequest(uReq);
-                    UserInfoResponse urp = (UserInfoResponse) rp;
+                    contUser.getUserInfo(getApplicationContext(), new RequestsCallback() {
+                        @Override
+                        public void onSuccess(TypeResponse response) {
+                            UserInfoResponse urp = (UserInfoResponse) response;
 
 
-                    Intent openData = new Intent(MainActivity.this, UserInfoActivity.class);
-                    String data = "";
-                    for(Map.Entry<String, Map<String,String>> entrada:  urp.getInfo().entrySet()){
-                        data += entrada.getKey()+"\n";
-                        for(Map.Entry<String,String> value : entrada.getValue().entrySet()){
-                            data += "       "+value.getKey() + " -> " + value.getValue() +"\n";
+                            Intent openData = new Intent(MainActivity.this, UserInfoActivity.class);
+                            String data = "";
+                            for(Map.Entry<String, Map<String,String>> entrada:  urp.getInfo().entrySet()){
+                                data += entrada.getKey()+"\n";
+                                for(Map.Entry<String,String> value : entrada.getValue().entrySet()){
+                                    data += "       "+value.getKey() + " -> " + value.getValue() +"\n";
+                                }
+                            }
+                            openData.putExtra("data", data);
+                            startActivity(openData);
+                            Log.i("MainUI",urp.getInfo().toString());
                         }
-                    }
-                    openData.putExtra("data", data);
-                    startActivity(openData);
-                    Log.i("MainUI",urp.getInfo().toString());
+
+                        @Override
+                        public void onError(TypeResponse response) {
+                            Log.i("request2", "error");
+                        }
+                    });
+                }
+
+                @Override
+                public void onError(TypeResponse response) {
+                    Log.i("request", "error");
                 }
             });
-            thread.start();
+
+
+
         }
+
     }
 
 }

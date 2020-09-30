@@ -7,10 +7,11 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.pack.sdk.ContConfiguracion;
+import com.pack.sdk.RequestsCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,14 +27,34 @@ public class UserInfoRequest extends TypeRequest{
     final String apiLink = "https://auth-testing.iduruguay.gub.uy/oidc/v1/userinfo";
 
     @Override
-    public StringRequest doRequest(RequestFuture future) {
+    public StringRequest doRequest(final RequestsCallback callback) {
         ContConfiguracion conf = ContConfiguracion.getInstance();
 
         final String accessToken = conf.getAccess_token();
 
         Log.i("UI TOKEN", accessToken);
-        StringRequest request = new StringRequest(Request.Method.POST, apiLink,future,
-                future) {
+        StringRequest request = new StringRequest(Request.Method.POST, apiLink,
+            new Response.Listener<String>()
+            {
+                @Override
+                public void onResponse(String response) {
+                    String s;
+                    s = response.trim();
+                    JSONObject obj = null;
+                    try {
+                        obj = new JSONObject(s);
+                    } catch (Throwable t) {
+                    }
+                    callback.onSuccess(processResponse(obj));
+                }
+            },
+            new Response.ErrorListener()
+            {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    callback.onError(new ErrorResponse());
+                }
+            }) {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
