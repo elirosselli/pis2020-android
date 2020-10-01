@@ -56,7 +56,7 @@ public class Requests implements InterfaceRequests {
                 ContConfiguracion.getInstance().setAuthorization_code(code);
                 return new AuthenticationResponse(code);
             }else // el usuario final cancelo
-                Log.i("Not code", "Fue cancelado");
+                Log.i("Not code", "Fue cancelado"); // TODO devolver error
         }
 
         return new ErrorResponse();

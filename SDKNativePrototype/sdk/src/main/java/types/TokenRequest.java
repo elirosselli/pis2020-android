@@ -2,7 +2,6 @@ package types;
 
 import android.os.Build;
 import android.util.Base64;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -135,9 +134,8 @@ public class TokenRequest extends TypeRequest {
 
             String id_token = response.getString("id_token");
 
-            Log.i("Token", access_token);
             conf.setId_token(id_token);
-            TokenResponse tr = new TokenResponse(access_token, token_type,id_token);
+            TokenResponse tr = new TokenResponse(access_token, token_type,id_token, expires_in, refresh_token);
 
             return tr;
 

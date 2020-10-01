@@ -1,6 +1,8 @@
 package com.pack.app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import types.RefreshTokenRequest;
+import types.TokenResponse;
 import types.TypeResponse;
 import types.UserInfoResponse;
 
@@ -33,13 +35,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         findViewById(R.id.btn_login).setOnClickListener(new View.OnClickListener(){
+
             @Override
             public void onClick(View v) {
                 contUser.login(getApplicationContext());
             }
         });
 
-        ContConfiguracion contConf = ContConfiguracion.getInstance();
+        final ContConfiguracion contConf = ContConfiguracion.getInstance();
         contConf.setScope(Arrays.asList("openid","email","profile","document"));
 
         Intent intent = getIntent();
@@ -54,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(TypeResponse response) {
                             UserInfoResponse urp = (UserInfoResponse) response;
-
 
                             Intent openData = new Intent(MainActivity.this, UserInfoActivity.class);
                             String data = "";
@@ -74,6 +76,22 @@ public class MainActivity extends AppCompatActivity {
                             Log.i("request2", "error");
                         }
                     });
+
+                    Requests rq = Requests.getInstance(getApplicationContext());
+                    RefreshTokenRequest rtr = new RefreshTokenRequest();
+                    rtr.setRefresh_token(contConf.getRefresh_token());
+                    rq.makeRequest(rtr, new RequestsCallback() {
+                        @Override
+                        public void onSuccess(TypeResponse response) {
+                            Log.i("aa",((TokenResponse) response).getAccess_token());
+                        }
+
+                        @Override
+                        public void onError(TypeResponse response) {
+                            Log.i("Errrrr","errr en refresh");
+                        }
+                    });
+
                 }
 
                 @Override

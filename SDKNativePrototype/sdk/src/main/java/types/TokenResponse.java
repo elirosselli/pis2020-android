@@ -8,13 +8,13 @@ public class TokenResponse extends TypeResponse {
     private String refresh_token;
 
     //  Constructor
-    public TokenResponse(String access_token, String token_type, String id_token) {
+    public TokenResponse(String access_token, String token_type, String id_token, int expires_in, String refresh_token) {
         super(true);
         this.access_token = access_token;
         this.token_type = token_type;
         this.id_token = id_token;
-        this.expires_in = null;
-        this.refresh_token = null;
+        this.expires_in = expires_in;
+        this.refresh_token = refresh_token;
     }
 
     //  Getter & Setter for access_token
