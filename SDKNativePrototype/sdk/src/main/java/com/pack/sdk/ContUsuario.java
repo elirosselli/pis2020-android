@@ -2,6 +2,7 @@ package com.pack.sdk;
 
 import java.util.List;
 
+import types.RefreshTokenRequest;
 import types.TokenRequest;
 import types.TypeResponse;
 import types.ErrorResponse;
@@ -78,8 +79,11 @@ public class ContUsuario implements InterfazUsuario{
     }
 
     @Override
-    public TypeResponse refreshToken(String refresh_token) {
-        return null;
+    public void refreshToken(String refresh_token, Context context, RequestsCallback callback) {
+        Requests rq = Requests.getInstance(context);
+        RefreshTokenRequest rfTr = new RefreshTokenRequest();
+        rfTr.setRefresh_token(refresh_token);
+        rq.makeRequest(rfTr,callback);
     }
 
     @Override

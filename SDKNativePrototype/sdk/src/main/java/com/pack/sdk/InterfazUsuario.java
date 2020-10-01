@@ -13,7 +13,7 @@ public interface InterfazUsuario {
     TypeResponse listenLoginResponse(Intent intent, Context context);
     TypeResponse login(Context context);
     void getToken(Context context, RequestsCallback callback);
-    TypeResponse refreshToken(String refresh_token);
+    void refreshToken(String refresh_token, Context context, RequestsCallback callback);
     void getUserInfo(Context context, RequestsCallback callback);
     TypeResponse logout();
     //public ProviderConfigResponse getOIDConfig(),  //TODO

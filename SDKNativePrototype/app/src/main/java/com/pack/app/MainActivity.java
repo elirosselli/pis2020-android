@@ -77,10 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
-                    Requests rq = Requests.getInstance(getApplicationContext());
-                    RefreshTokenRequest rtr = new RefreshTokenRequest();
-                    rtr.setRefresh_token(contConf.getRefresh_token());
-                    rq.makeRequest(rtr, new RequestsCallback() {
+                    contUser.refreshToken(contConf.getRefresh_token(),getApplicationContext(), new RequestsCallback() {
                         @Override
                         public void onSuccess(TypeResponse response) {
                             Log.i("aa",((TokenResponse) response).getAccess_token());
