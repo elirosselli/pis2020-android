@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: "org.sonarqube"
 
 android {
     compileSdkVersion 30
@@ -30,4 +31,16 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "SDKNativePrototype"
+        property "sonar.projectKey", "SDKNativePrototype"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.language", "java"
+        property "sonar.sources", "src/main/"
+        property "sonar.login", "admin"
+        property "sonar.password", "admin"
+    }
 }
