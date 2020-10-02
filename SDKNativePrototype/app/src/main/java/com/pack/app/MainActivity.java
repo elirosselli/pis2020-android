@@ -1,6 +1,7 @@
 package com.pack.app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import types.ErrorResponse;
 import types.RefreshTokenRequest;
 import types.TokenResponse;
 import types.TypeResponse;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final ContConfiguracion contConf = ContConfiguracion.getInstance();
-        contConf.setScope(Arrays.asList("openid","email","profile","document"));
+        contConf.setScope(Arrays.asList("openid","email","profile","document")); //TODO que el usuario no ponga texto.
 
         Intent intent = getIntent();
         //El tema de la uri cuando se hace el redirect. En el manifest esta configurado el deep linking
@@ -99,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        }else{
+            ErrorResponse err = (ErrorResponse) tr;
         }
 
     }

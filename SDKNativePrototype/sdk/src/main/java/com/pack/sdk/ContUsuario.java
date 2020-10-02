@@ -30,7 +30,7 @@ public class ContUsuario implements InterfazUsuario{
     }
 
     @Override
-    public TypeResponse login(Context context) {
+    public TypeResponse login(Context context) { // TODO Agregar scope y sacar de config. Tipo scope forma lista.
         Requests requestsClass = Requests.getInstance(context);
         AuthenticationRequest authReq = new AuthenticationRequest();
         ContConfiguracion intConf = ContConfiguracion.getInstance();
