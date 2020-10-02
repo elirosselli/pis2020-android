@@ -3,125 +3,125 @@ import types.ErrorResponse;
 
 public class ContConfiguracionUsuario {
 
-    private String clientId;
-    private String clientSecret;
-    private String redirectUri;
-    private String responseType;
-    private String idToken;
-    private String tokenType;
-    private String authorizationCode;
-    private String accessToken;
-    private Integer expiresIn;
+    private String client_id;
+    private String client_secret;
+    private String redirect_uri;
+    private String response_type;
+    private String id_token;
+    private String token_type;
+    private String authorization_code;
+    private String access_token;
+    private Integer expires_in;
     private String state;
     private String nonce;
     private String prompt;
-    private String grantType;
-    private String acrValues;
+    private String grant_type;
+    private String acr_values;
     private String scope;
-    private Boolean updatetoken;
+    private Boolean update_token;
     //private JWK key; //TODO
 
     // Constructor
     public ContConfiguracionUsuario(){
-        this.clientId = null;
-        this.clientSecret = null;
-        this.redirectUri = null;
-        this.responseType = null;
-        this.idToken = null;
-        this.tokenType = null;
-        this.authorizationCode = null;
-        this.accessToken = null;
-        this.expiresIn = null;
+        this.client_id = null;
+        this.client_secret = null;
+        this.redirect_uri = null;
+        this.response_type = null;
+        this.id_token = null;
+        this.token_type = null;
+        this.authorization_code = null;
+        this.access_token = null;
+        this.expires_in = null;
         this.state = null;
         this.nonce = null;
         this.prompt = null;
-        this.grantType = null;
-        this.acrValues = null;
+        this.grant_type = null;
+        this.acr_values = null;
         this.scope = null;
-        this.updatetoken = null;
+        this.update_token = null;
         // JWK key; //TODO
     }
 
 
     // Getter & Setter for client_id
-    public ErrorResponse setClientId(String clientId){
-        this.clientId = clientId;
+    public ErrorResponse setClient_id(String client_id){
+        this.client_id = client_id;
         return new ErrorResponse("0", "Success");
     }
-    public String getClientId(){
-        return this.clientId;
+    public String getClient_id(){
+        return this.client_id;
     }
 
-    // Getter & Setter for clientSecret
-    public ErrorResponse setClientSecret(String clientSecret){
-        this.clientSecret = clientSecret;
+    // Getter & Setter for client_secret
+    public ErrorResponse setClient_secret(String client_secret){
+        this.client_secret = client_secret;
         return new ErrorResponse("0", "Success");
     }
-    public String getClientSecret(){
-        return this.clientSecret;
+    public String getClient_secret(){
+        return this.client_secret;
     }
 
-    // Getter & Setter for redirectUri
-    public ErrorResponse setRedirectUri(String redirectUri){
-        this.redirectUri = redirectUri;
+    // Getter & Setter for redirect_uri
+    public ErrorResponse setRedirect_uri(String redirect_uri){
+        this.redirect_uri = redirect_uri;
         return new ErrorResponse("0", "Success");
     }
-    public String getRedirectUri(){
-        return this.redirectUri;
+    public String getRedirect_uri(){
+        return this.redirect_uri;
     }
 
-    // Getter & Setter for responseType
-    public ErrorResponse setResponseType(String responseType){
-        this.responseType = responseType;
+    // Getter & Setter for response_type
+    public ErrorResponse setResponse_type(String response_type){
+        this.response_type = response_type;
         return new ErrorResponse("0", "Success");
     }
-    public String getResponseType(){
-        return this.responseType;
+    public String getResponse_type(){
+        return this.response_type;
     }
 
-    // Getter & Setter for idToken
-    public ErrorResponse setIdToken(String idToken){
-        this.idToken = idToken;
+    // Getter & Setter for id_token
+    public ErrorResponse setId_token(String id_token){
+        this.id_token = id_token;
         return new ErrorResponse("0", "Success");
     }
-    public String idToken(){
-        return this.idToken;
+    public String id_token(){
+        return this.id_token;
     }
 
-    // Getter & Setter for tokenType
-    public ErrorResponse setToken_type(String tokenType){
-        this.tokenType = tokenType;
+    // Getter & Setter for token_type
+    public ErrorResponse setToken_type(String token_type){
+        this.token_type = token_type;
         return new ErrorResponse("0", "Success");
     }
-    public String tokenType(){
-        return this.tokenType;
+    public String token_type(){
+        return this.token_type;
     }
 
-    // Getter & Setter for authorizationCode
-    public ErrorResponse setauthorizationCode(String authorizationCode){
-        this.authorizationCode = authorizationCode;
+    // Getter & Setter for authorization_code
+    public ErrorResponse setAuthorization_code(String authorization_code){
+        this.authorization_code = authorization_code;
         return new ErrorResponse("0", "Success");
     }
-    public String getAuthorizationCode(){
-        return this.authorizationCode;
+    public String getAuthorization_code(){
+        return this.authorization_code;
     }
 
-    // Getter & Setter for accessToken
-    public ErrorResponse setAccessToken(String accessToken){
-        this.accessToken = accessToken;
+    // Getter & Setter for access_token
+    public ErrorResponse setAccess_token(String access_token){
+        this.access_token = access_token;
         return new ErrorResponse("0", "Success");
     }
-    public String getAccessToken(){
-        return this.accessToken;
+    public String getAccess_token(){
+        return this.access_token;
     }
 
-    // Getter & Setter for expiresIn
-    public ErrorResponse setExpiresIn(Integer expiresIn){
-        this.expiresIn = expiresIn;
+    // Getter & Setter for expires_in
+    public ErrorResponse setExpires_in(Integer expires_in){
+        this.expires_in = expires_in;
         return new ErrorResponse("0", "Success");
     }
-    public Integer getExpiresIn(){
-        return this.expiresIn;
+    public Integer getExpires_in(){
+        return this.expires_in;
     }
 
     // Getter & Setter for expires_in
@@ -151,22 +151,22 @@ public class ContConfiguracionUsuario {
         return this.prompt;
     }
 
-    // Getter & Setter for grantType
-    public ErrorResponse setGrantType(String grantType){
-        this.grantType = grantType;
+    // Getter & Setter for grant_type
+    public ErrorResponse setGrant_type(String grant_type){
+        this.grant_type = grant_type;
         return new ErrorResponse("0", "Success");
     }
-    public String getGrantType(){
-        return this.grantType;
+    public String getGrant_type(){
+        return this.grant_type;
     }
 
-    // Getter & Setter for acrValues
-    public ErrorResponse setAcrValues(String acrValues){
-        this.acrValues = acrValues;
+    // Getter & Setter for acr_values
+    public ErrorResponse setAcr_values(String acr_values){
+        this.acr_values = acr_values;
         return new ErrorResponse("0", "Success");
     }
-    public String getAcrValues(){
-        return this.acrValues;
+    public String getAcr_values(){
+        return this.acr_values;
     }
 
     // Getter & Setter for scope
@@ -178,13 +178,13 @@ public class ContConfiguracionUsuario {
         return this.scope;
     }
 
-    // Getter & Setter for updateToken
-    public ErrorResponse setupdateToken(Boolean updateToken){
-        this.updatetoken = updateToken;
+    // Getter & Setter for update_token
+    public ErrorResponse setUpdate_token(Boolean update_token){
+        this.update_token = update_token;
         return new ErrorResponse("0", "Success");
     }
-    public Boolean getUpdatetoken(){
-        return this.updatetoken;
+    public Boolean getUpdate_token(){
+        return this.update_token;
     }
 
     // Getter & Setter for JWK key //TODO
