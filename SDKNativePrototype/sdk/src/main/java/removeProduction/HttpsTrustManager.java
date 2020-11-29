@@ -12,6 +12,11 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+/*  
+    Permite evitar el chequeo de certificado trusted, 
+    solucionando el problema de pegarle a endpoints de testing 
+*/
+
 public class HttpsTrustManager implements X509TrustManager {
 
     private static TrustManager[] trustManagers;
