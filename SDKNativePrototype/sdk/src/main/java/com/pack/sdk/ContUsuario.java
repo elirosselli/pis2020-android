@@ -15,7 +15,7 @@ import android.content.Intent;
 public class ContUsuario implements InterfazUsuario{
 
     @Override
-    public ErrorResponse initialize(String client_id, String client_secret, String redirect_uri) {//, String response_type, String id_token, String token_type, String authorization_code, String access_token, Integer expires_in, String state, String nonce, String prompt, String grant_type, String acr_values, String scope, Boolean update_token) {
+    public ErrorResponse initialize(String client_id, String client_secret, String redirect_uri) {  //  String scope
         ContConfiguracion intConf = ContConfiguracion.getInstance();
         intConf.setClient_id(client_id);
         intConf.setClient_secret(client_secret);
