@@ -1,0 +1,21 @@
+
+…
+AXTnShnBer1N8fx3hlZ6	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î¾»ÿÿÿÿÿ8¸¢òË.
+…
+AXTnShnBer1N8fx3hlZ5	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„“Ì¤øÿÿÿÿ8¸¢òË.
+…
+AXTnShnBer1N8fx3hlZ4	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼…“Åøÿÿÿÿ8¸¢òË.
+Š
+AXTnShnBer1N8fx3hlZ2	java:S116
+"XRename this field "id_token_hint" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´ğß”8¸¢òË.
+ˆ
+AXTnShnBer1N8fx3hlZ0	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”´õÕÿÿÿÿÿ8¸¢òË.
+…
+AXTnShnBer1N8fx3hlZ7	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”´õÕÿÿÿÿÿ8¸¢òË.
+ˆ
+AXTnShm-er1N8fx3hlZz	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„“Ì¤øÿÿÿÿ8¸¢òË.
+x
+AXTnShnBer1N8fx3hlZ1
+java:S1128"ERemove this unused import 'com.android.volley.toolbox.RequestFuture'.(€¢ò8èÚ§ºÌ.
+”
+AXTnShnBer1N8fx3hlZ3	java:S116"cRename this field "post_logout_redirect_uri" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë†õf8¸¢òË.
